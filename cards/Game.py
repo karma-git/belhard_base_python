@@ -18,6 +18,7 @@ class Game:
         self.deck = Deck()
         self.players_enough = []
         self.dealer = Player.Dealer()
+        self.max_bet, self.min_bet = 20, 0
 
     @staticmethod
     def _ask_starting(message):
@@ -52,6 +53,10 @@ class Game:
         self.player_pos = random.randint(0, len(self.players))
         print(f'{self.player} position is: ', self.player_pos)  # it needs to be deleted
         self.players.insert(self.player_pos, self.player)
+
+    def ask_bet(self):
+        for player in self.players:
+            player.change_bet(self.max_bet, self.min_bet)
 
     def first_desc(self):
         """
@@ -132,6 +137,7 @@ class Game:
             for player in self.players:
                 # if isinstance(player, Player.Bot):
                 player.print_cards()
+                print(player.money)
 
                 ######################
 
@@ -141,23 +147,16 @@ class Game:
         else:
             for player in self.players:
                 if player.full_points == self.dealer.full_points:
-                    # player.money += player.bet
+                    player.money += player.bet
                     print(MESSAGES.get('eq').format(player=player,
                                                        points=player.full_points))
+
                 elif player.full_points > self.dealer.full_points:
                     print(MESSAGES.get('win').format(player))
-                    # # player.money += player.bet * 2
-                    # if isinstance(player, Player.Bot):
-                    #     print(MESSAGES.get('win').format(player))
-                    # elif isinstance(player, Player.Player):
-                    #     print(f'{self.player} are win')
+                    player.money += player.bet * 2
 
                 elif player.full_points < self.dealer.full_points:
                     print(MESSAGES.get('lose').format(player))
-                    # if isinstance(player, Player.Bot):
-                    #     print(MESSAGES.get('lose').format(player))
-                    # elif isinstance(player, Player.Player):
-                    #     print(f'{self.player} are lose')
 
     # main Game method
     def start_game(self):
@@ -167,6 +166,8 @@ class Game:
 
         # generating data for starting
         self._launching()
+
+        self.ask_bet()
 
         self.first_desc()  # first desk
 
@@ -178,7 +179,6 @@ class Game:
             for player in self.players:
                 player.print_cards()
             print(MESSAGES.get('dealer_game'))
-
 
         # Game vs Dealer
         self.play_with_dealer()
