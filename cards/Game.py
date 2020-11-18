@@ -14,6 +14,7 @@ class Game:
         self.player_pos = None
         self.all_players_count = 1
         self.deck = Deck()
+        self.want_stand = []
 
     @staticmethod
     def _ask_starting(message):
@@ -32,16 +33,16 @@ class Game:
                 # Player.Player.name = your_name
                 break
 
-        # while True:
-        #     bots_count = int(input('Hello, write bots count ')) #todo: const
-        #     if bots_count <= self.max_pl_count - 1:  # self # Game #__name__
-        #         break
+        while True:
+            bots_count = int(input('Hello, write bots count ')) #todo: const
+            if bots_count <= self.max_pl_count - 1:  # self # Game #__name__
+                break
 
-        # for _ in range(bots_count):
-        #     b = Player.Bot()
-        #     self.players.append(b)
-        #
-        #     print(b, 'is created')
+        for _ in range(bots_count):
+            b = Player.Bot()
+            self.players.append(b)
+
+            print(b, 'is created')
 
         self.player = Player.Player()
         self.player.name = your_name
@@ -61,6 +62,28 @@ class Game:
         for player in self.players:
             player.print_cards()
 
+    def stand(self):
+        for player in self.players:
+            if not player.ask_card():
+                player.stand = None
+            else:
+                player.stand = True
+
+    def another_desc(self):
+        for player in self.players:
+            if player.stand:
+                for _ in range(1):
+                    card = self.deck.get_card()
+                    player.take_card(card)
+
+        card = self.deck.get_card()
+
+        #tmp
+        for player in self.players:
+            player.print_cards()
+
+
+
     def start_game(self):
         message = MESSAGES.get('ask_start')  # берем сообщение из констант
         if not self._ask_starting(message=message):  # если метод вернул фолс дропаем
@@ -68,4 +91,9 @@ class Game:
 
         # generating data for starting
         self._launching()
+
         self.first_desc()
+        self.stand()
+        while True:
+            self.another_desc()
+            self.stand()
