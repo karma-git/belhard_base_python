@@ -17,6 +17,7 @@ class Game:
         self.all_players_count = 1
         self.deck = Deck()
         self.players_enough = []
+        self.dealer = Player.Dealer()
 
     @staticmethod
     def _ask_starting(message):
@@ -114,6 +115,50 @@ class Game:
 
         # is_stop = self.check_stop(player)
 
+    # Dealer methods
+    def play_with_dealer(self):
+        card = self.deck.get_card() #
+        self.dealer.take_card(card) # first card
+        while self.dealer.ask_card():
+            card = self.deck.get_card()
+            self.dealer.take_card(card)
+        self.dealer.print_cards()
+
+    def check_winner(self):
+        if self.dealer.full_points > 21:
+            print(MESSAGES.get('dealer_fall'))
+
+            #fix bug when bots cards haven't been printed
+            for player in self.players:
+                # if isinstance(player, Player.Bot):
+                player.print_cards()
+
+                ######################
+
+            # for winner in self.players:
+            #     winner.money += winner.bet * 2
+            # all win
+        else:
+            for player in self.players:
+                if player.full_points == self.dealer.full_points:
+                    # player.money += player.bet
+                    print(MESSAGES.get('eq').format(player=player,
+                                                       points=player.full_points))
+                elif player.full_points > self.dealer.full_points:
+                    print(MESSAGES.get('win').format(player))
+                    # # player.money += player.bet * 2
+                    # if isinstance(player, Player.Bot):
+                    #     print(MESSAGES.get('win').format(player))
+                    # elif isinstance(player, Player.Player):
+                    #     print(f'{self.player} are win')
+
+                elif player.full_points < self.dealer.full_points:
+                    print(MESSAGES.get('lose').format(player))
+                    # if isinstance(player, Player.Bot):
+                    #     print(MESSAGES.get('lose').format(player))
+                    # elif isinstance(player, Player.Player):
+                    #     print(f'{self.player} are lose')
+
     # main Game method
     def start_game(self):
         message = MESSAGES.get('ask_start')  # берем сообщение из констант
@@ -125,9 +170,17 @@ class Game:
 
         self.first_desc()  # first desk
 
+        # Player versus dealer
         while self.is_next_desk_needed():
             self.ask_card()
         else:
             print("Vizhivshie")
             for player in self.players:
                 player.print_cards()
+            print(MESSAGES.get('dealer_game'))
+
+
+        # Game vs Dealer
+        self.play_with_dealer()
+
+        self.check_winner()

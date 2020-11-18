@@ -26,7 +26,7 @@ class AbstractPlayer(abc.ABC):
         pass
 
     def print_cards(self):
-        print(self, " data")
+        print(self, "data")
         self.hand_printer()  # hand printer
         # for card in self.cards: # vs poocheridi
         #     print(card)
@@ -82,3 +82,18 @@ class Bot(AbstractPlayer):
     def __repr__(self):
         name = self.name
         return name
+
+
+class Dealer(AbstractPlayer):
+
+    max_points = 17
+
+    def ask_card(self):
+        if self.full_points < self.max_points:
+            return True
+        else:
+            return False
+
+    def __repr__(self):
+        self.name = 'Dealer'
+        return self.name

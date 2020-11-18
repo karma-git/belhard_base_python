@@ -14,7 +14,8 @@ MESSAGES = {
     'win': '{} player are win',
     'lose': '{} player are lose',
     'rerun': 'Want to play again?(y/n)',
-    'circle_num': clr.Fore.GREEN + '\n!!! {} circle !!!\n' + clr.Style.RESET_ALL
+    'circle_num': clr.Fore.GREEN + '\n!!! {} circle !!!\n' + clr.Style.RESET_ALL,
+    'dealer_game': clr.Fore.MAGENTA + '\n Start Game versus Dealer !!! \n' + clr.Style.RESET_ALL,
 }
 
 
