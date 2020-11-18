@@ -99,6 +99,11 @@ class Game:
             if player.ask_card():
                 card = self.deck.get_card()
                 player.take_card(card)
+
+                # Ace 1 point mechanic
+                if card.rank == 'Ace' and player.full_points > 21:
+                    player.full_points -= 10
+
             elif not player.ask_card():
                 player.enough = True
             player.print_cards()
