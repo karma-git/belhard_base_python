@@ -12,7 +12,7 @@ class AbstractPlayer(abc.ABC):
         self.cards = []
         self.name = None
         self.full_points = None
-        self.stand = None
+        self.enough = False
 
     def change_points(self):
         self.full_points = sum([card.points for card in self.cards])

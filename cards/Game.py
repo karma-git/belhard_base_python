@@ -16,7 +16,7 @@ class Game:
         self.player_pos = None
         self.all_players_count = 1
         self.deck = Deck()
-        self.want_circle = [True]
+        self.players_enough = []
 
     @staticmethod
     def _ask_starting(message):
@@ -30,13 +30,13 @@ class Game:
     def _launching(self):
 
         while True:
-            your_name = input('Hello, write your name ')  # todo: const
+            your_name = input('Hello, write your name: ')  # todo: const
             if your_name:
                 # Player.Player.name = your_name
                 break
 
         while True:
-            bots_count = int(input('Hello, write bots count '))  # todo: const
+            bots_count = int(input('Hello, write bots count: '))  # todo: const
             if bots_count <= self.max_pl_count - 1:  # self # Game #__name__
                 break
 
@@ -44,7 +44,7 @@ class Game:
             b = Player.Bot()
             self.players.append(b)
 
-            print(b, 'is created')
+            print(b, 'is created')  # is it neaded?
 
         self.player = Player.Player()
         self.player.name = your_name
@@ -53,52 +53,63 @@ class Game:
         self.players.insert(self.player_pos, self.player)
 
     def first_desc(self):
+        """
+        First desk, all players will take 2 cards
+        """
+        # take first 2 cards for each player
         for player in self.players:
             for _ in range(2):
                 card = self.deck.get_card()
                 player.take_card(card)
-
-        card = self.deck.get_card()
-
-        # tmp
+        # cards print
         for player in self.players:
             player.print_cards()
 
-    def stand(self):
+    def is_next_desk_needed(self):
+        enough = []  # votes of the players
         for player in self.players:
-            if not player.ask_card():
-                player.stand = None
-            else:
-                player.stand = True
+            enough.append(player.enough) # send player decision to vote
+        # True if at least one player need a card
+        if False in enough:
+            self.circle_count += 1
+            return True
+        # False otherwise
+        else:
+            return False
+
+    # Game Service methods
+    def check_fall(self, player):
+        if player.full_points > 21:
+            return True
+        else:
+            return False
 
     def remove_player(self, player):
-        player.print_cards()
+        # player.print_cards() # I wont print card of a player when he just fall
         if isinstance(player, Player.Player):
             print(f'{self.player} fall!')
         elif isinstance(player, Player.Bot):
             print(player, 'are fall')
         self.players.remove(player)
 
-    def another_desc(self):
-        self.circle_count += 1
+    def ask_card(self):
+        # new circle print
         print(MESSAGES.get('circle_num').format(self.circle_count))
-        self.want_circle.clear()
         for player in self.players:
-            if player.stand:
-                for _ in range(1):
-                    card = self.deck.get_card()
-                    player.take_card(card)
-                    self.want_circle.append(True)
-                    if player.full_points > 21:
-                        self.remove_player(player)
-
-        # tmp
-        for player in self.players:
+            if player.ask_card():
+                card = self.deck.get_card()
+                player.take_card(card)
+            elif not player.ask_card():
+                player.enough = True
             player.print_cards()
+            sleep(2)
 
-    def check_winner(self):
-        pass
+            if self.check_fall(player):
+                self.remove_player(player)
 
+        # is_stop = self.check_stop(player)
+
+    # main Game method
     def start_game(self):
         message = MESSAGES.get('ask_start')  # берем сообщение из констант
         if not self._ask_starting(message=message):  # если метод вернул фолс дропаем
@@ -107,13 +118,11 @@ class Game:
         # generating data for starting
         self._launching()
 
-        self.first_desc()
-        self.stand()
-        while True in self.want_circle:
-            self.another_desc()
-            self.stand()
-            sleep(2)
+        self.first_desc()  # first desk
+
+        while self.is_next_desk_needed():
+            self.ask_card()
         else:
+            print("Vizhivshie")
             for player in self.players:
-                print(f'{player} - winner!')
                 player.print_cards()
