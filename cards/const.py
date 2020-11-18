@@ -1,4 +1,5 @@
 from names import get_first_name
+import colorama as clr
 
 
 SUITS = ['Diamonds', 'Clubs', 'Spades', 'Hearts']
@@ -12,7 +13,8 @@ MESSAGES = {
     'eq': '{player} player has {points} points so it equal with dealer points\n {player} bid will be back',
     'win': '{} player are win',
     'lose': '{} player are lose',
-    'rerun': 'Want to play again?(y/n)'
+    'rerun': 'Want to play again?(y/n)',
+    'circle_num': clr.Fore.GREEN + '\n!!! {} circle !!!\n' + clr.Style.RESET_ALL
 }
 
 
