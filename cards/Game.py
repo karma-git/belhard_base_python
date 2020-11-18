@@ -3,7 +3,7 @@ from Deck import Deck
 import random
 from time import sleep
 
-from const import MESSAGES
+from const import MESSAGES, colorama_colors, colored
 
 
 class Game:
@@ -63,6 +63,7 @@ class Game:
         First desk, all players will take 2 cards
         """
         # take first 2 cards for each player
+        print(MESSAGES.get('first_desk'))
         for player in self.players:
             for _ in range(2):
                 card = self.deck.get_card()
@@ -92,10 +93,10 @@ class Game:
 
     def remove_player(self, player):
         # player.print_cards() # I wont print card of a player when he just fall
-        if isinstance(player, Player.Player):
-            print(f'{self.player} fall!')
-        elif isinstance(player, Player.Bot):
-            print(player, 'are fall')
+        # if isinstance(player, Player.Player):
+        #     print(f'{self.player} fall!')
+        # elif isinstance(player, Player.Bot):
+        print(player, 'are fall\n')
         self.players.remove(player)
 
     def ask_card(self):
@@ -129,35 +130,38 @@ class Game:
             self.dealer.take_card(card)
         self.dealer.print_cards()
 
+    def stats_printer(self, player, x):
+        print(f"{player} is win -> "
+              f"score {colored('yellow', player.full_points)} ->"
+              f"profit {colored('yellow', player.bet * x)} ( all bank ->{player.money}) ")
+
     def check_winner(self):
         if self.dealer.full_points > 21:
+            # all win
             print(MESSAGES.get('dealer_fall'))
-
-            #fix bug when bots cards haven't been printed
-            for player in self.players:
-                # if isinstance(player, Player.Bot):
-                player.print_cards()
-
-                ######################
 
             for winner in self.players:
                 winner.money += winner.bet * 2
+                self.stats_printer(winner, 2)
 
-                print(player.money)
-            # all win
         else:
             for player in self.players:
                 if player.full_points == self.dealer.full_points:
                     player.money += player.bet
                     print(MESSAGES.get('eq').format(player=player,
                                                        points=player.full_points))
+                    self.stats_printer(player, 1)
 
                 elif player.full_points > self.dealer.full_points:
                     print(MESSAGES.get('win').format(player))
                     player.money += player.bet * 2
+                    self.stats_printer(player, 2)
 
                 elif player.full_points < self.dealer.full_points:
                     print(MESSAGES.get('lose').format(player))
+                    print(f"{player} is lose -> "
+                          f"score {colored('blue', player.full_points)} ->"
+                          f"profit {colored('blue', player.bet)} ( all bank ->{player.money}) ")
 
     # main Game method
     def start_game(self):
@@ -171,12 +175,13 @@ class Game:
         self.ask_bet()
 
         self.first_desc()  # first desk
+        sleep(5)
 
         # Player versus dealer
         while self.is_next_desk_needed():
             self.ask_card()
         else:
-            print("Vizhivshie")
+            print(MESSAGES.get('alive_players'))
             for player in self.players:
                 player.print_cards()
             print(MESSAGES.get('dealer_game'))

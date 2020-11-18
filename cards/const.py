@@ -2,6 +2,35 @@ from names import get_first_name
 import colorama as clr
 
 
+colorama_colors = {
+    'BLACK' : clr.Fore.BLACK,
+    'RED' : clr.Fore.BLACK,
+    'GREEN' : clr.Fore.GREEN,
+    'YELLOW' : clr.Fore.YELLOW,
+    'BLUE' : clr.Fore.BLUE,
+    'MAGENTA' : clr.Fore.MAGENTA,
+    'CYAN' : clr.Fore.CYAN,
+    'WHITE' : clr.Fore.WHITE,
+# LIGHTBLACK_EX
+# LIGHTRED_EX
+# LIGHTGREEN_EX
+# LIGHTYELLOW_EX
+# LIGHTBLUE_EX
+# LIGHTMAGENTA_EX
+# LIGHTCYAN_EX
+# LIGHTWHITE_EX
+}
+
+
+def colored(color, text):
+    """
+    take color and text and return colored text
+    """
+    global colorama_colors
+    colored_text = colorama_colors.get(color.upper()) + str(text) + clr.Style.RESET_ALL
+    return colored_text
+
+
 SUITS = ['Diamonds', 'Clubs', 'Spades', 'Hearts']
 RANKS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace']
 PRINTED = {rank: f'***{rank}***' for rank in RANKS}
@@ -14,8 +43,10 @@ MESSAGES = {
     'win': '{} player are win',
     'lose': '{} player are lose',
     'rerun': 'Want to play again?(y/n)',
-    'circle_num': clr.Fore.GREEN + '\n!!! {} circle !!!\n' + clr.Style.RESET_ALL,
-    'dealer_game': clr.Fore.MAGENTA + '\n Start Game versus Dealer !!! \n' + clr.Style.RESET_ALL,
+    'alive_players' : colored('CYAN', '\nPlayers in the game:\n'),
+    'first_desk' : colored('yellow', '\n!!! First shuffle !!!\n'),
+    'circle_num': colored('green', '\n!!! {} shuffle !!!\n'),
+    'dealer_game': colored('magenta', '\nStart Game versus Dealer !!! \n'),
 }
 
 
