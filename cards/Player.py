@@ -58,7 +58,8 @@ class Player(AbstractPlayer):
     def ask_card(self):
         if self.full_points == 21:
             return False
-
+        elif self.enough:
+            return False
         choice = input(MESSAGES.get('ask_card'))
         if choice == 'y':
             return True
