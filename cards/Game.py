@@ -137,12 +137,13 @@ class Game:
             for player in self.players:
                 # if isinstance(player, Player.Bot):
                 player.print_cards()
-                print(player.money)
 
                 ######################
 
-            # for winner in self.players:
-            #     winner.money += winner.bet * 2
+            for winner in self.players:
+                winner.money += winner.bet * 2
+
+                print(player.money)
             # all win
         else:
             for player in self.players:

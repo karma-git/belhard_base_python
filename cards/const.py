@@ -9,7 +9,7 @@ PRINTED = {rank: f'***{rank}***' for rank in RANKS}
 MESSAGES = {
     'ask_start': 'Want to play?(y/n) ',
     'ask_card' : 'Want new card?(y/n) ',
-    'dealer_fall': 'Dealer are fall! All players in game are win',
+    'dealer_fall': 'Dealer has just fallen! All players in game are win',
     'eq': '{player} player has {points} points so it equal with dealer points\n {player} bid will be back',
     'win': '{} player are win',
     'lose': '{} player are lose',
