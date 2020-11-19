@@ -50,18 +50,18 @@ class Game:
 
         self.player = Player.Player()
         self.player.name = your_name
-        # self.player_pos = random.randint(0, len(self.players))
-        # print(f'{self.player} position is: ', self.player_pos)  # it needs to be deleted
+        self.player_pos = random.randint(0, len(self.players))
+        print(f'{self.player} position is: ', self.player_pos)  # it needs to be deleted
         self.players.insert(0, self.player)
 
     def _restart(self):
         self.deck = Deck() # New dec
         self.dealer = Player.Dealer() # CLEAR dealer
-        self.players_enough = [] # restart
+        self.players_enough.clear() # restart
         for player in self.players:
-            player.cards = []
+            player.cards.clear()
             self.full_points = None
-            self.enough = False
+            player.enough = False
 
     def ask_bet(self):
         for player in self.players:
@@ -82,11 +82,11 @@ class Game:
             player.print_cards()
 
     def is_next_desk_needed(self):
-        enough = []  # votes of the players
+        self.players_enough.clear()  # votes of the players
         for player in self.players:
-            enough.append(player.enough)  # send player decision to vote
+            self.players_enough.append(player.enough)  # send player decision to vote
         # True if at least one player need a card
-        if False in enough:
+        if False in self.players_enough:
             self.circle_count += 1
             return True
         # False otherwise
@@ -154,7 +154,7 @@ class Game:
                                                profit=bet * x,
                                                bank=bank))
         elif action == 'lose':
-            print(MESSAGES.get('win').format(player=player,
+            print(MESSAGES.get('lose').format(player=player,
                                              score=score,
                                              profit=bank - bet,
                                              bank=bank))
@@ -208,6 +208,11 @@ class Game:
                                        x=1,
                                        bank=player.money)
 
+    # DEBUG
+    def _debug(self):
+        for player in self.players:
+            print(f'{player} -> {player.enough}')
+
     # main Game method
     def start_game(self):
         message = MESSAGES.get('ask_start')  # берем сообщение из констант
@@ -223,6 +228,7 @@ class Game:
 
             self.first_desc()  # first desk
             sleep(2.5)
+            self._debug()
 
             # Player versus dealer
             while self.is_next_desk_needed():
@@ -243,6 +249,7 @@ class Game:
                 self.check_winner()
             else:
                 print(MESSAGES.get('no_players'))
+
 
             # new
             if not self._ask_starting(MESSAGES.get('rerun')):

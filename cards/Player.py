@@ -48,7 +48,7 @@ class Player(AbstractPlayer):
 
     def change_bet(self, max_bet, min_bet):
         while True:
-            value = int(input('Make your bet: '))
+            value = int(input(MESSAGES.get('ask_bet')))
             if value < max_bet and value > min_bet:
                 self.bet = value
                 self.money -= self.bet
