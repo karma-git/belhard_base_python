@@ -1,6 +1,6 @@
 from itertools import product
 from random import shuffle
-from picture import CardFromDeck, CardPrinter
+from Picture import CardFromDeck, CardPrinter
 from const import SUITS, RANKS
 import colorama as clr
 

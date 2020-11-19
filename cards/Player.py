@@ -3,7 +3,7 @@ from Deck import Deck
 import colorama as clr
 import random
 from const import MESSAGES, NAMES
-from picture import CardPrinter, CardFromDeck
+from Picture import CardPrinter, CardFromDeck
 
 
 class AbstractPlayer(abc.ABC):
