@@ -310,5 +310,5 @@ class Game:
                 print(MESSAGES.get('no_players'))
 
             # new game asking
-            if not self._ask_starting(MESSAGES.get('rerun')):
+            if not self._ask_starting(MESSAGES.get('ask_rerun')):
                 break
