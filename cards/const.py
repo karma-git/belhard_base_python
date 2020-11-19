@@ -42,12 +42,12 @@ MESSAGES = {
     # Shuffle
     'initial_deal': colored('yellow', '\n!!! Initial deal !!!\n'),
     'next_deal': colored('yellow', '\n!!! Deal {} !!!\n'),
-    'alive_players': colored('yellow', '\nRemained players:\n'),
-    'no_players': colored('yellow', '\nThere are no players in game\n'),
-    'falling': colored('yellow', '{player} has just fallen!\n'
-                'Lost {money}$ -> money left {bank}'),
+    'alive_players': colored('cyan', '\nRemained players:\n'),
+    'no_players': colored('cyan', '\nThere are no players in game\n'),
+    'falling': colored('blue', '{player} has just fallen!\n'
+                                 'Lost {money}$ -> money left {bank}'),
     'player_bank': colored('yellow', """{player}'s current bank {bank}$"""),
-    'no_money' : colored('yellow', """Sorry, your account is empty.\n
+    'no_money': colored('yellow', """Sorry, your account is empty.\n
                                     Game over."""),
     # Dealer
     'dealer_fall': colored('magenta', 'Dealer has just fallen! All remained players in the game won (bet x2)'),
