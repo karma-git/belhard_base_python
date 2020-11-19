@@ -19,6 +19,7 @@ class Game:
         self.players_enough = []
         self.dealer = Player.Dealer()
         self.max_bet, self.min_bet = 20, 0
+        self.losers = []
 
     @staticmethod
     def _ask_starting(message):
@@ -38,7 +39,7 @@ class Game:
                 break
 
         while True:
-            bots_count = int(input('Hello, write bots count: '))  # todo: const
+            bots_count = int(input('Hello, write bots count (3 max): '))  # todo: const
             if bots_count <= self.max_pl_count - 1:  # self # Game #__name__
                 break
 
@@ -58,6 +59,11 @@ class Game:
         self.deck = Deck() # New dec
         self.dealer = Player.Dealer() # CLEAR dealer
         self.players_enough.clear() # restart
+        self.circle_count = 1
+
+        while self.losers:
+            self.players.append(self.losers.pop())
+
         for player in self.players:
             player.cards.clear()
             self.full_points = None
@@ -107,6 +113,7 @@ class Game:
         # elif isinstance(player, Player.Bot):
         print(player, ' has just fallen!\n')
         self.players.remove(player)
+        self.losers.append(player)
 
     def ask_card(self):
         # new circle print
@@ -156,7 +163,7 @@ class Game:
         elif action == 'lose':
             print(MESSAGES.get('lose').format(player=player,
                                              score=score,
-                                             profit=bank - bet,
+                                             profit=bet,
                                              bank=bank))
 
     def check_winner(self):
@@ -228,7 +235,8 @@ class Game:
 
             self.first_desc()  # first desk
             sleep(2.5)
-            self._debug()
+
+            # self._debug()
 
             # Player versus dealer
             while self.is_next_desk_needed():

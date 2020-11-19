@@ -2,21 +2,24 @@ import abc
 from Deck import Deck
 import colorama as clr
 import random
-from const import MESSAGES, NAMES  # not needed
+from const import MESSAGES, NAMES
 from picture import CardPrinter, CardFromDeck
 
 
 class AbstractPlayer(abc.ABC):
-
+    # Properties of an abstract player (Player, Bot, Dealer)
     def __init__(self):
-        self.cards = []
+        self.cards = []  # player hand
         self.bet = 0
         self.name = None
-        self.full_points = None
+        self.full_points = None  # players hand value
         self.money = 100
-        self.enough = False
+        self.enough = False  # Is the player want to get a card at the next shuffle?
 
     def change_points(self):
+        """
+
+        """
         self.full_points = sum([card.points for card in self.cards])
 
     def take_card(self, card):

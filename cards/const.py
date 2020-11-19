@@ -13,19 +13,12 @@ colorama_colors = {
     'LIGHTWHITE_EX': clr.Fore.LIGHTWHITE_EX,
     'LIGHTRED_EX': clr.Fore.LIGHTRED_EX,
     'LIGHTBLUE_EX': clr.Fore.LIGHTBLUE_EX
-    # LIGHTBLACK_EX
-    # LIGHTGREEN_EX
-    # LIGHTYELLOW_EX
-
-    # LIGHTMAGENTA_EX
-    # LIGHTCYAN_EX
-
 }
 
 
 def colored(color, text):
     """
-    take color and text and return colored text
+    The method takes color and some str and return colored string.
     """
     global colorama_colors
     colored_text = colorama_colors.get(color.upper()) + str(text) + clr.Style.RESET_ALL
@@ -34,13 +27,12 @@ def colored(color, text):
 
 SUITS = ['Diamonds', 'Clubs', 'Spades', 'Hearts']
 RANKS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace']
-PRINTED = {rank: f'***{rank}***' for rank in RANKS}
 
 MESSAGES = {
     'ask_start': 'Want to play?(y/n) ',
     'ask_card': 'Want new card?(y/n) ',
-    'ask_bet' : 'Make your bet (1-19 $): ',
-    'dealer_fall': 'Dealer has just fallen! All players in game are win',
+    'ask_bet': 'Make your bet (1-19 $): ',
+    'dealer_fall': 'Dealer has just fallen! All remained players in the game won',
     'eq': '{player} player has {points} points so it equal with dealer points\n {player} bid will be back',
 
     'win': colored('LIGHTRED_EX', '{player} player is win'
@@ -48,24 +40,28 @@ MESSAGES = {
                                   'profit -> {profit} | '
                                   'bank -> {bank}'),
     'equal': colored('LIGHTWHITE_EX', '{player} players bet has been returned'
-                                     '\nscore -> {score} | '
-                                     'bet -> {profit} | '
-                                     'bank -> {bank}'),
+                                      '\nscore -> {score} | '
+                                      'bet -> {profit} | '
+                                      'bank -> {bank}'),
 
     'lose': colored('LIGHTWHITE_EX', '{player} player is lose'
-                                   '\nscore -> {score} | '
-                                   '-money -> {profit} | '
-                                   'bank -> {bank}'),
+                                     '\nscore -> {score} | '
+                                     '-money -> {profit} | '
+                                     'bank -> {bank}'),
+
     'rerun': 'Want to play again?(y/n)',
     'alive_players': colored('CYAN', '\nPlayers in the game:\n'),
     'first_desk': colored('yellow', '\n!!! First shuffle !!!\n'),
     'circle_num': colored('green', '\n!!! {} shuffle !!!\n'),
     'dealer_game': colored('magenta', '\nStart Game versus Dealer !!! \n'),
     'no_players': colored('CYAN', '\nThere are no players in game\n')
-}
+    }
 
 
 def random_name():
+    """
+    Generating a name for bot.
+    """
     return get_first_name(gender="male")
 
 

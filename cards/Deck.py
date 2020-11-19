@@ -1,50 +1,50 @@
 from itertools import product
 from random import shuffle
 from picture import CardFromDeck, CardPrinter
-from const import SUITS, RANKS, PRINTED
+from const import SUITS, RANKS
 import colorama as clr
 
 
 class Card:
-    # конструктор, у карты есть масть, карта, ее валуе и картинка
+    # Object properties
     def __init__(self, suit, rank, points, picture):
         self.suit = suit
         self.rank = rank
         self.points = points
         self.picture = picture
 
-    # репр объекта карты, ранк, масть, валуе
+    # return message for Object instance:
+    #                                   card picture and value
     def __repr__(self):
         message = self.picture + '\nPoints: ' + str(self.points)
         return message
 
 
 class Deck:
-    # генерируется колода
+    # Generate a deck of cards
     def __init__(self):
         self.cards = self._generate_deck()
-        shuffle(self.cards)  # картуется
+        shuffle(self.cards)  # shuffle a deck
 
     def _generate_deck(self):
         cards = []
-        for suit, rank in product(SUITS, RANKS):  # вместо генератора итертулс
-            if rank == 'Ace':  # если туз то его валуе = 11
+        for suit, rank in product(SUITS, RANKS):  # generate suits for all cards
+            if rank == 'Ace':  # 11 points for ace
                 points = 11
-            elif rank.isdigit():  # если без картинки то int от ранка
+            elif rank.isdigit():  # int(card_value) if not picture
                 points = int(rank)
-            else:  # инча карта с картинкой и 10-ка
+            else:  # else picture -> 10
                 points = 10
-            # picture = PRINTED.get(rank)  # из констант забирается картинка по ключу ранк
             card_instance = CardFromDeck(suit, rank)
             picture = CardPrinter.ascii_version_of_card(card_instance)
             c = Card(suit=suit, rank=rank, points=points, picture=picture)  # создается инстанс карты
-            cards.append(c)  # объект аппендится в лист и колоджа попадает в Deck.cards
+            cards.append(c)
         return cards
 
-    # позволяет доставать карту из колоды и возвращает ее
+    # take a card from the deck
     def get_card(self):
         return self.cards.pop()
 
-    # позволяет смотреть длину колоды (достали ли из нее карту)
+    # checked how much cards left in deck
     def __len__(self):
         return len(self.cards)
