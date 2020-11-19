@@ -2,6 +2,7 @@
 
 ## BlackJack
 Simple black_jack game in terminal
+Execute main.py via python3 for playing
 # Start Game
 ![Start](/black_jack/pictures/Start.png)
 # Initial Deal
