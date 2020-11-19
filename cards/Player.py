@@ -116,7 +116,7 @@ class Bot(AbstractPlayer):
         """
         self.bet = random.randint(min_bet, max_bet)
         self.money -= self.bet
-        print(self, 'give: ', self.bet)
+        print(self, 'gives: ', self.bet)
 
     def ask_card(self):
         """
