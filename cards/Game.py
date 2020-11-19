@@ -65,7 +65,7 @@ class Game:
         """
         Method for clear desk params & print player's bank
         """
-        self.deck = Deck()  # New dec
+        self.deck = Deck()  # New deck
         self.dealer = Player.Dealer()  # CLEAR dealer
         self.players_enough.clear()  # anchor for game with dealer
         self.deal_number = 1
