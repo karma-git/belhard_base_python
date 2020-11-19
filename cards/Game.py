@@ -54,6 +54,15 @@ class Game:
         print(f'{self.player} position is: ', self.player_pos)  # it needs to be deleted
         self.players.insert(self.player_pos, self.player)
 
+    def _restart(self):
+        self.deck = Deck() # New dec
+        self.dealer = Player.Dealer() # CLEAR dealer
+        self.players_enough = [] # restart
+        for player in self.players:
+            player.cards = []
+            self.full_points = None
+            self.enough = False
+
     def ask_bet(self):
         for player in self.players:
             player.change_bet(self.max_bet, self.min_bet)
@@ -208,27 +217,33 @@ class Game:
         # generating data for starting
         self._launching()
 
-        self.ask_bet()
+        while self.player.money > 0:
+            self._restart()
+            self.ask_bet()
 
-        self.first_desc()  # first desk
-        sleep(2.5)
+            self.first_desc()  # first desk
+            sleep(2.5)
 
-        # Player versus dealer
-        while self.is_next_desk_needed():
-            self.ask_card()
-        # else:
-        #     for player in self.players:
-        #         player.print_cards()
+            # Player versus dealer
+            while self.is_next_desk_needed():
+                self.ask_card()
+            # else:
+            #     for player in self.players:
+            #         player.print_cards()
 
-        # Game vs Dealer
-        if self.players != []:
-            print(MESSAGES.get('alive_players'))
+            # Game vs Dealer
+            if self.players != []:
+                print(MESSAGES.get('alive_players'))
 
-            for player in self.players:
-                player.print_cards()
+                for player in self.players:
+                    player.print_cards()
 
-            print(MESSAGES.get('dealer_game'))
-            self.play_with_dealer()
-            self.check_winner()
-        else:
-            print(MESSAGES.get('no_players'))
+                print(MESSAGES.get('dealer_game'))
+                self.play_with_dealer()
+                self.check_winner()
+            else:
+                print(MESSAGES.get('no_players'))
+
+            # new
+            if not self._ask_starting(MESSAGES.get('rerun')):
+                break
