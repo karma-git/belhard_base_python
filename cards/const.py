@@ -14,6 +14,7 @@ colorama_colors = {
     'LIGHTRED_EX': clr.Fore.LIGHTRED_EX,
     'LIGHTBLUE_EX': clr.Fore.LIGHTBLUE_EX,
     'LIGHTYELLOW_EX': clr.Fore.LIGHTYELLOW_EX,
+    'LIGHTMAGENTA_EX': clr.Fore.LIGHTMAGENTA_EX
 }
 
 
@@ -47,8 +48,9 @@ MESSAGES = {
     'falling': colored('blue', '{player} has just fallen!\n'
                                  'Lost {money}$ -> money left {bank}'),
     'player_bank': colored('yellow', """{player}'s current bank {bank}$"""),
-    'no_money': colored('yellow', """Sorry, your account is empty.\n
-                                    Game over."""),
+    'no_money': colored('yellow', """Sorry, your account is empty.\nGame over."""),
+    'no_money': f"""{colored('yellow', 'Sorry, your account is empty.')}\n
+                    {colored('LIGHTMAGENTA_EX', 'Game Over.')}""",
     # Dealer
     'dealer_fall': colored('magenta', 'Dealer has just fallen! All remained players in the game won (bet x2)'),
     'eq': colored('magenta', """{player} hand value equal with dealer's. 
