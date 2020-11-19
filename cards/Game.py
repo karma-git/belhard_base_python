@@ -223,7 +223,7 @@ class Game:
     # DEBUG
     def _debug(self):
         for player in self.players:
-            print(f'{player} -> want a card? {player.enough}')
+            print(f'{player} -> enough? {player.enough}')
 
     # main Game method
     def start_game(self):
