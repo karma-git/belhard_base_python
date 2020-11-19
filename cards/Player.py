@@ -7,7 +7,9 @@ from picture import CardPrinter, CardFromDeck
 
 
 class AbstractPlayer(abc.ABC):
-    # Properties of an abstract player (Player, Bot, Dealer)
+    """
+    An abstract player (Player, Bot, Dealer)
+    """
     def __init__(self):
         self.cards = []  # player hand
         self.bet = 0
@@ -18,38 +20,54 @@ class AbstractPlayer(abc.ABC):
 
     def change_points(self):
         """
-
+        This method is designed too recalculate player hand value
         """
         self.full_points = sum([card.points for card in self.cards])
 
     def take_card(self, card):
+        """
+        This method add a card to player hand and call recalculate hand sum (via change_points method)
+        """
         self.cards.append(card)
         self.change_points()
 
     @abc.abstractmethod
     def ask_card(self):
+        """
+        Is player want to get a new card?
+        Abstract due to different for AI and real player.
+        """
         pass
 
-    def print_cards(self):
-        print(self, "data")
-        self.hand_printer()  # hand printer
-        # for card in self.cards: # vs poocheridi
-        #     print(card)
-        print('Full points: ', self.full_points, '\n')
-
     def hand_printer(self):
-        cards_list = list()
-        for card in self.cards:
+        """
+        The method prints a card picture.
+        """
+        cards_list = list()  # list, because we want to print cards in one line
+        for card in self.cards:  # player hand
             card = CardFromDeck(card.suit, card.rank)  # unpack dictionary
-            cards_list.append(card)
-        else:
-            hand_print = CardPrinter.ascii_version_of_card(*cards_list)
+            cards_list.append(card)  # list for print
+        else:  # when for done
+            hand_print = CardPrinter.ascii_version_of_card(*cards_list)  # complete ascii graphics
             print(hand_print)
+
+    def print_cards(self):
+        """
+        Add Player name and value of printed hand.
+        """
+        print(self, "data")  # Player name + data
+        self.hand_printer()  # hand printer
+        print('Full points: ', self.full_points, '\n')  # hand value
 
 
 class Player(AbstractPlayer):
-
+    """
+    Real player
+    """
     def change_bet(self, max_bet, min_bet):
+        """
+        Ask a player about his bet.
+        """
         while True:
             value = int(input(MESSAGES.get('ask_bet')))
             if value < max_bet and value > min_bet:
