@@ -96,7 +96,7 @@ class Game:
         # if isinstance(player, Player.Player):
         #     print(f'{self.player} fall!')
         # elif isinstance(player, Player.Bot):
-        print(player, 'are fall\n')
+        print(player, ' has just fallen!\n')
         self.players.remove(player)
 
     def ask_card(self):
@@ -175,18 +175,24 @@ class Game:
         self.ask_bet()
 
         self.first_desc()  # first desk
-        sleep(5)
+        sleep(2.5)
 
         # Player versus dealer
         while self.is_next_desk_needed():
             self.ask_card()
-        else:
-            print(MESSAGES.get('alive_players'))
-            for player in self.players:
-                player.print_cards()
-            print(MESSAGES.get('dealer_game'))
+        # else:
+        #     for player in self.players:
+        #         player.print_cards()
 
         # Game vs Dealer
-        self.play_with_dealer()
+        if self.players != []:
+            print(MESSAGES.get('alive_players'))
 
-        self.check_winner()
+            for player in self.players:
+                player.print_cards()
+
+            print(MESSAGES.get('dealer_game'))
+            self.play_with_dealer()
+            self.check_winner()
+        else:
+            print(MESSAGES.get('no_players'))

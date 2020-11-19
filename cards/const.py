@@ -40,13 +40,15 @@ MESSAGES = {
     'ask_card' : 'Want new card?(y/n) ',
     'dealer_fall': 'Dealer has just fallen! All players in game are win',
     'eq': '{player} player has {points} points so it equal with dealer points\n {player} bid will be back',
-    'win': '{} player are win',
+    'win': '{} player is win'
+           '\n score ',
     'lose': '{} player are lose',
     'rerun': 'Want to play again?(y/n)',
     'alive_players' : colored('CYAN', '\nPlayers in the game:\n'),
     'first_desk' : colored('yellow', '\n!!! First shuffle !!!\n'),
     'circle_num': colored('green', '\n!!! {} shuffle !!!\n'),
     'dealer_game': colored('magenta', '\nStart Game versus Dealer !!! \n'),
+    'no_players' : colored('CYAN', '\nThere are no players in game\n')
 }
 
 
