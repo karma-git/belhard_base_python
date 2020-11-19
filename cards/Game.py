@@ -111,7 +111,7 @@ class Game:
         self.players_enough.clear()  # clear anchor for game with dealer
         for player in self.players:
             self.players_enough.append(player.enough)  # send player decision to anchor
-        # True if at least one player need a card
+        # Method return True if at least one player need a card (player.enough=False in players_enough)
         if False in self.players_enough:
             self.circle_count += 1
             return True
@@ -121,28 +121,46 @@ class Game:
 
     # Game Service methods
     def check_fall(self, player):
+        """
+        The method check much, for a player.
+        Return True if so, otherwise False.
+        """
         if player.full_points > 21:
             return True
         else:
             return False
 
     def remove_player(self, player):
-        # player.print_cards() # I wont print card of a player when he just fall
-        # if isinstance(player, Player.Player):
-        #     print(f'{self.player} fall!')
-        # elif isinstance(player, Player.Bot):
-        print(player, ' has just fallen!\n')
+        """
+        The method for deletion a player for current alive players list.
+        And append him into losers container.
+        Print how much money info also.
+        """
+        print(player, f' has just fallen!\n'
+                      f'lost {player.bet}$ -> money left {player.bank}')  # TODO: const!
         self.players.remove(player)
         self.losers.append(player)
 
     def ask_card(self):
-        # new circle print
+        """
+        The method suggest to take a card for a player.
+        - Print shuffle num
+            - Give a card for a player if he want it.
+                + ace overflow mechanic.
+                + print his hand after it.
+                + check falling.
+        Else:
+            - Set player.enough to True
+                                        * player will not take a card during this game.
+                + print player hand.
+        """
+        # 1). Print shuffle num
         print(MESSAGES.get('circle_num').format(self.circle_count))
         for player in self.players:
             if player.ask_card():
                 card = self.deck.get_card()
                 player.take_card(card)
-                # Ace 1 point mechanic
+                # * Ace overflow mechanic.
                 if card.rank == 'Ace' and player.full_points > 21:
                     player.full_points -= 10
                 # hand print
@@ -158,17 +176,28 @@ class Game:
 
     # Dealer methods
     def play_with_dealer(self):
-        card = self.deck.get_card()  #
-        self.dealer.take_card(card)  # first card
+        """
+        Remained players play versus dealer.
+        For black_jack rules, dealer continue take a card until his hand value take 17. He can't take a card after.
+        """
+        card = self.deck.get_card()
+        self.dealer.take_card(card)
         while self.dealer.ask_card():
             card = self.deck.get_card()
             self.dealer.take_card(card)
         self.dealer.print_cards()
 
     def stats_printer(self, player, action, score, bet, x, bank):
-        # print(f"{player} is win -> "
-        #       f"score {colored('yellow', player.full_points)} ->"
-        #       f"profit {colored('yellow', player.bet * x)} ( all bank ->{player.money}) ")
+        """
+        Method print player statistic.
+        :param player: player instance
+        :param action: take most common situation after game_vs_dealer: win, lose, equal
+        :param score: player hand value
+        :param bet: player bet
+        :param x: bet multiply
+        :param bank: remained money on player account
+        :return:
+        """
         if action == 'win':
             print(MESSAGES.get('win').format(player=player,
                                              score=score,
@@ -181,9 +210,9 @@ class Game:
                                                bank=bank))
         elif action == 'lose':
             print(MESSAGES.get('lose').format(player=player,
-                                             score=score,
-                                             profit=bet,
-                                             bank=bank))
+                                              score=score,
+                                              profit=bet,
+                                              bank=bank))
 
     def check_winner(self):
         if self.dealer.full_points > 21:
@@ -277,7 +306,6 @@ class Game:
                 self.check_winner()
             else:
                 print(MESSAGES.get('no_players'))
-
 
             # new
             if not self._ask_starting(MESSAGES.get('rerun')):
