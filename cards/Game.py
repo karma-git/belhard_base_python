@@ -12,7 +12,7 @@ class Game:
     """
     # global variables
     max_pl_count = 4
-    circle_count = 1
+    deal_number = 1
 
     def __init__(self):
         self.players = []  # list of players instance in current game
@@ -41,12 +41,12 @@ class Game:
         """
         # Ask Player.Player name
         while True:
-            your_name = input('Hello, write your name: ')  # todo: const
+            your_name = input(MESSAGES.get('ask_name'))
             if your_name:
                 break
         # Ask bots count
         while True:
-            bots_count = int(input('Hello, write bots count (3 max): '))  # todo: const
+            bots_count = int(input(MESSAGES.get('ask_bot_count')))
             if bots_count <= self.max_pl_count - 1:
                 break
         # bot creating
@@ -68,7 +68,7 @@ class Game:
         self.deck = Deck()  # New dec
         self.dealer = Player.Dealer()  # CLEAR dealer
         self.players_enough.clear()  # anchor for game with dealer
-        self.circle_count = 1
+        self.deal_number = 1
         # move players who lose in last game to new
         while self.losers:
             self.players.append(self.losers.pop())
@@ -85,11 +85,11 @@ class Game:
         for player in self.players:
             player.change_bet(self.max_bet, self.min_bet)
 
-    def first_desc(self):
+    def initial_deal(self):
         """
-        First desk, all players will take 2 cards
+        Initial_deal, all players will take 2 cards
         """
-        print(MESSAGES.get('first_desk'))
+        print(MESSAGES.get('initial_deal'))
         for player in self.players:
             for _ in range(2):
                 card = self.deck.get_card()
@@ -112,7 +112,7 @@ class Game:
             self.players_enough.append(player.enough)  # send player decision to anchor
         # Method return True if at least one player need a card (player.enough=False in players_enough)
         if False in self.players_enough:
-            self.circle_count += 1
+            self.deal_number += 1
             return True
         # False otherwise
         else:
@@ -154,7 +154,7 @@ class Game:
                 + print player hand.
         """
         # 1). Print shuffle num
-        print(MESSAGES.get('circle_num').format(self.circle_count))
+        print(MESSAGES.get('circle_num').format(self.deal_number))
         for player in self.players:
             if player.ask_card():
                 card = self.deck.get_card()
@@ -285,7 +285,7 @@ class Game:
             # ask players about their bets
             self.ask_bet()
             # first desk
-            self.first_desc()
+            self.initial_deal()
             sleep(2.5) # small freeze
 
             # while at least one player want to get a card, do:

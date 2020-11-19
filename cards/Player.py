@@ -55,9 +55,9 @@ class AbstractPlayer(abc.ABC):
         """
         Add Player name and value of printed hand.
         """
-        print(self, "data")  # Player name + data
+        print(self, "hand:")  # Player name + data
         self.hand_printer()  # hand printer
-        print('Full points: ', self.full_points, '\n')  # hand value
+        print('Hand value: ', self.full_points, '\n')  # hand value
 
 
 class Player(AbstractPlayer):
