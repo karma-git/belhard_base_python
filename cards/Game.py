@@ -17,9 +17,9 @@ class Game:
     def __init__(self):
         self.players = []  # list of players instance in current game
         self.player = None  # property for real player instance
-        self.all_players_count = 1  # TODO is it needed?
-        self.deck = Deck()
-        self.players_enough = []
+        self.all_players_count = 1  # TODO: is it needed?
+        self.deck = Deck()  # deck of cards instance
+        self.players_enough = []  #
         self.dealer = Player.Dealer()
         self.max_bet, self.min_bet = 20, 0
         self.losers = []
@@ -139,10 +139,6 @@ class Game:
             player.print_cards()
             sleep(2)
 
-
-
-        # is_stop = self.check_stop(player)
-
     # Dealer methods
     def play_with_dealer(self):
         card = self.deck.get_card()  #
@@ -256,8 +252,8 @@ class Game:
             if self.players != []:
                 print(MESSAGES.get('alive_players'))
 
-                for player in self.players:
-                    player.print_cards()
+                # for player in self.players: #zadvoenie card
+                #     player.print_cards()
 
                 print(MESSAGES.get('dealer_game'))
                 self.play_with_dealer()
