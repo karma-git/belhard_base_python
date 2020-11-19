@@ -196,7 +196,7 @@ class Game:
         :param bet: player bet
         :param x: bet multiply
         :param bank: remained money on player account
-        :return:
+        :return: None
         """
         if action == 'win':
             print(MESSAGES.get('win').format(player=player,
@@ -215,10 +215,12 @@ class Game:
                                               bank=bank))
 
     def check_winner(self):
+        """
+        The method calculate and print result of game.
+        """
+        # dealer fall, all remained players won.
         if self.dealer.full_points > 21:
-            # all win
             print(MESSAGES.get('dealer_fall'))
-
             for winner in self.players:
                 winner.money += winner.bet * 2
                 self.stats_printer(player=winner,
@@ -227,21 +229,19 @@ class Game:
                                    bet=winner.bet,
                                    x=2,
                                    bank=winner.money)
-
+        # if dealer not fall
         else:
             for player in self.players:
+                # equal
                 if player.full_points == self.dealer.full_points:
                     player.money += player.bet
-                    # print(MESSAGES.get('eq').format(player=player,
-                    #                                    points=player.full_points))
-                    # self.stats_printer(player, 1)
                     self.stats_printer(player=player,
                                        action='equal',
                                        score=player.full_points,
                                        bet=player.bet,
                                        x=1,
                                        bank=player.money)
-
+                # player win vs dealer
                 elif player.full_points > self.dealer.full_points:
                     player.money += player.bet * 2
                     self.stats_printer(player=player,
@@ -250,12 +250,8 @@ class Game:
                                        bet=player.bet,
                                        x=2,
                                        bank=player.money)
-
+                # player lose vs dealer
                 elif player.full_points < self.dealer.full_points:
-                    # print(MESSAGES.get('lose').format(player))
-                    # print(f"{player} is lose -> "
-                    #       f"score {colored('blue', player.full_points)} ->"
-                    #       f"profit {colored('blue', player.bet)} ( all bank ->{player.money}) ")
                     self.stats_printer(player=player,
                                        action='lose',
                                        score=player.full_points,
@@ -263,50 +259,56 @@ class Game:
                                        x=1,
                                        bank=player.money)
 
-    # DEBUG
+    ### DEBUG ###
     def _debug(self):
+        """
+        :) debugger
+        """
         for player in self.players:
             print(f'{player} -> enough? {player.enough}')
 
-    # main Game method
+    ### main Game method ###
     def start_game(self):
-        message = MESSAGES.get('ask_start')  # берем сообщение из констант
-        if not self._ask_starting(message=message):  # если метод вернул фолс дропаем
+        # Ask about game initialization
+        message = MESSAGES.get('ask_start')
+        if not self._ask_starting(message=message):
             exit(1)
 
-        # generating data for starting
+        # Ask player name, creating bots, set player pos
         self._launching()
 
+        # While Player.Player have money:
         while self.player.money > 0:
+
+            # clear tmp data (players hands, bets, and other service info)
             self._restart()
+
+            # ask players about their bets
             self.ask_bet()
+            # first desk
+            self.first_desc()
+            sleep(2.5) # small freeze
 
-            self.first_desc()  # first desk
-            sleep(2.5)
-
-            self._debug()
-
-            # Player versus dealer
+            # while at least one player want to get a card, do:
             while self.is_next_desk_needed():
-                self._debug()
                 self.ask_card()
-            # else:
-            #     for player in self.players:
-            #         player.print_cards()
 
-            # Game vs Dealer
+            # If no one of the remained players want a card:
+            # print remained players list
             if self.players:
                 print(MESSAGES.get('alive_players'))
-
                 for player in self.players:
                     player.print_cards()
 
+                # & Initialize Game vs Dealer
                 print(MESSAGES.get('dealer_game'))
                 self.play_with_dealer()
+                # results of the game versus dealer
                 self.check_winner()
+            # if all players have been fall
             else:
                 print(MESSAGES.get('no_players'))
 
-            # new
+            # new game asking
             if not self._ask_starting(MESSAGES.get('rerun')):
                 break
