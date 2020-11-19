@@ -75,7 +75,7 @@ class Game:
     def is_next_desk_needed(self):
         enough = []  # votes of the players
         for player in self.players:
-            enough.append(player.enough) # send player decision to vote
+            enough.append(player.enough)  # send player decision to vote
         # True if at least one player need a card
         if False in enough:
             self.circle_count += 1
@@ -123,17 +123,32 @@ class Game:
 
     # Dealer methods
     def play_with_dealer(self):
-        card = self.deck.get_card() #
-        self.dealer.take_card(card) # first card
+        card = self.deck.get_card()  #
+        self.dealer.take_card(card)  # first card
         while self.dealer.ask_card():
             card = self.deck.get_card()
             self.dealer.take_card(card)
         self.dealer.print_cards()
 
-    def stats_printer(self, player, x):
-        print(f"{player} is win -> "
-              f"score {colored('yellow', player.full_points)} ->"
-              f"profit {colored('yellow', player.bet * x)} ( all bank ->{player.money}) ")
+    def stats_printer(self, player, action, score, bet, x, bank):
+        # print(f"{player} is win -> "
+        #       f"score {colored('yellow', player.full_points)} ->"
+        #       f"profit {colored('yellow', player.bet * x)} ( all bank ->{player.money}) ")
+        if action == 'win':
+            print(MESSAGES.get('win').format(player=player,
+                                             score=score,
+                                             profit=bet * x,
+                                             bank=bank))
+        elif action == 'equal':
+            print(MESSAGES.get('equal').format(player=player,
+                                               score=score,
+                                               profit=bet * x,
+                                               bank=bank))
+        elif action == 'lose':
+            print(MESSAGES.get('win').format(player=player,
+                                             score=score,
+                                             profit=bank - bet,
+                                             bank=bank))
 
     def check_winner(self):
         if self.dealer.full_points > 21:
@@ -142,26 +157,47 @@ class Game:
 
             for winner in self.players:
                 winner.money += winner.bet * 2
-                self.stats_printer(winner, 2)
+                self.stats_printer(player=winner,
+                                   action='win',
+                                   score=winner.full_points,
+                                   bet=winner.bet,
+                                   x=2,
+                                   bank=winner.money)
 
         else:
             for player in self.players:
                 if player.full_points == self.dealer.full_points:
                     player.money += player.bet
-                    print(MESSAGES.get('eq').format(player=player,
-                                                       points=player.full_points))
-                    self.stats_printer(player, 1)
+                    # print(MESSAGES.get('eq').format(player=player,
+                    #                                    points=player.full_points))
+                    # self.stats_printer(player, 1)
+                    self.stats_printer(player=player,
+                                       action='equal',
+                                       score=player.full_points,
+                                       bet=player.bet,
+                                       x=1,
+                                       bank=player.money)
 
                 elif player.full_points > self.dealer.full_points:
-                    print(MESSAGES.get('win').format(player))
                     player.money += player.bet * 2
-                    self.stats_printer(player, 2)
+                    self.stats_printer(player=player,
+                                       action='win',
+                                       score=player.full_points,
+                                       bet=player.bet,
+                                       x=2,
+                                       bank=player.money)
 
                 elif player.full_points < self.dealer.full_points:
-                    print(MESSAGES.get('lose').format(player))
-                    print(f"{player} is lose -> "
-                          f"score {colored('blue', player.full_points)} ->"
-                          f"profit {colored('blue', player.bet)} ( all bank ->{player.money}) ")
+                    # print(MESSAGES.get('lose').format(player))
+                    # print(f"{player} is lose -> "
+                    #       f"score {colored('blue', player.full_points)} ->"
+                    #       f"profit {colored('blue', player.bet)} ( all bank ->{player.money}) ")
+                    self.stats_printer(player=player,
+                                       action='lose',
+                                       score=player.full_points,
+                                       bet=player.bet,
+                                       x=1,
+                                       bank=player.money)
 
     # main Game method
     def start_game(self):

@@ -1,24 +1,25 @@
 from names import get_first_name
 import colorama as clr
 
-
 colorama_colors = {
-    'BLACK' : clr.Fore.BLACK,
-    'RED' : clr.Fore.BLACK,
-    'GREEN' : clr.Fore.GREEN,
-    'YELLOW' : clr.Fore.YELLOW,
-    'BLUE' : clr.Fore.BLUE,
-    'MAGENTA' : clr.Fore.MAGENTA,
-    'CYAN' : clr.Fore.CYAN,
-    'WHITE' : clr.Fore.WHITE,
-# LIGHTBLACK_EX
-# LIGHTRED_EX
-# LIGHTGREEN_EX
-# LIGHTYELLOW_EX
-# LIGHTBLUE_EX
-# LIGHTMAGENTA_EX
-# LIGHTCYAN_EX
-# LIGHTWHITE_EX
+    'BLACK': clr.Fore.BLACK,
+    'RED': clr.Fore.BLACK,
+    'GREEN': clr.Fore.GREEN,
+    'YELLOW': clr.Fore.YELLOW,
+    'BLUE': clr.Fore.BLUE,
+    'MAGENTA': clr.Fore.MAGENTA,
+    'CYAN': clr.Fore.CYAN,
+    'WHITE': clr.Fore.WHITE,
+    'LIGHTWHITE_EX': clr.Fore.LIGHTWHITE_EX,
+    'LIGHTRED_EX': clr.Fore.LIGHTRED_EX,
+    'LIGHTBLUE_EX': clr.Fore.LIGHTBLUE_EX
+    # LIGHTBLACK_EX
+    # LIGHTGREEN_EX
+    # LIGHTYELLOW_EX
+
+    # LIGHTMAGENTA_EX
+    # LIGHTCYAN_EX
+
 }
 
 
@@ -37,18 +38,29 @@ PRINTED = {rank: f'***{rank}***' for rank in RANKS}
 
 MESSAGES = {
     'ask_start': 'Want to play?(y/n) ',
-    'ask_card' : 'Want new card?(y/n) ',
+    'ask_card': 'Want new card?(y/n) ',
     'dealer_fall': 'Dealer has just fallen! All players in game are win',
     'eq': '{player} player has {points} points so it equal with dealer points\n {player} bid will be back',
-    'win': '{} player is win'
-           '\n score ',
-    'lose': '{} player are lose',
+
+    'win': colored('LIGHTRED_EX', '{player} player is win'
+                                  '\nscore -> {score} | '
+                                  'profit -> {profit} | '
+                                  'bank -> {bank}'),
+    'equal': colored('LIGHTWHITE_EX', '{player} players bet has been returned'
+                                     '\nscore -> {score} | '
+                                     'bet -> {profit} | '
+                                     'bank -> {bank}'),
+
+    'lose': colored('LIGHTWHITE_EX', '{player} player is lose'
+                                   '\nscore -> {score} | '
+                                   '-money -> {profit} | '
+                                   'bank -> {bank}'),
     'rerun': 'Want to play again?(y/n)',
-    'alive_players' : colored('CYAN', '\nPlayers in the game:\n'),
-    'first_desk' : colored('yellow', '\n!!! First shuffle !!!\n'),
+    'alive_players': colored('CYAN', '\nPlayers in the game:\n'),
+    'first_desk': colored('yellow', '\n!!! First shuffle !!!\n'),
     'circle_num': colored('green', '\n!!! {} shuffle !!!\n'),
     'dealer_game': colored('magenta', '\nStart Game versus Dealer !!! \n'),
-    'no_players' : colored('CYAN', '\nThere are no players in game\n')
+    'no_players': colored('CYAN', '\nThere are no players in game\n')
 }
 
 
