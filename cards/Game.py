@@ -130,13 +130,15 @@ class Game:
                 if card.rank == 'Ace' and player.full_points > 21:
                     player.full_points -= 10
 
+                if self.check_fall(player):
+                    self.remove_player(player)
+
             elif not player.ask_card():
                 player.enough = True
             player.print_cards()
             sleep(2)
 
-            if self.check_fall(player):
-                self.remove_player(player)
+
 
         # is_stop = self.check_stop(player)
 
