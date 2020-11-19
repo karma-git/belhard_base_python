@@ -135,8 +135,9 @@ class Game:
         And append him into losers container.
         Print how much money info also.
         """
-        print(player, f' has just fallen!\n'
-                      f'lost {player.bet}$ -> money left {player.money}')  # TODO: const!
+        print(MESSAGES.get('falling').format(player=player,
+                                             money=player.bet,
+                                             bank=player.money))
         self.players.remove(player)
         self.losers.append(player)
 
@@ -154,7 +155,7 @@ class Game:
                 + print player hand.
         """
         # 1). Print shuffle num
-        print(MESSAGES.get('circle_num').format(self.deal_number))
+        print(MESSAGES.get('next_deal').format(self.deal_number))
         for player in self.players:
             if player.ask_card():
                 card = self.deck.get_card()

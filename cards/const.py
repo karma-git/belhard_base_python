@@ -31,18 +31,19 @@ RANKS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 
 
 MESSAGES = {
     # System messages: Yellow / Light_Yellow
-    'ask_name': colored('LIGHTYELLOW_EX', 'Hello Stranger, what is your name?: '),
-    'ask_bot_count': colored('LIGHTYELLOW_EX', 'Chose a bots count (from 0 to 3): '),
-    'ask_start': colored('LIGHTYELLOW_EX', 'Want to play blackjack?(y/n): '),
-    'ask_card': colored('LIGHTYELLOW_EX', 'Want to "hit" a card?""(y/n): '),
+    'ask_name': colored('LIGHTYELLOW_EX', """Hello Stranger, what's your name?: """),
+    'ask_bot_count': colored('LIGHTYELLOW_EX', 'Choose bots count (from 0 to 3): '),
+    'ask_start': colored('LIGHTYELLOW_EX', 'Wanna play BlackJack?(y/n): '),
+    'ask_card': colored('LIGHTYELLOW_EX', 'Wanna "hit" a card?(y/n): '),
     'ask_bet': colored('LIGHTYELLOW_EX', 'Make your bet (1-19 $): '),
-    'ask_rerun': colored('LIGHTYELLOW_EX', 'Want to play again?(y/n)'),
+    'ask_rerun': colored('LIGHTYELLOW_EX', 'Wanna play next desk?(y/n)'),
     # Shuffle
     'initial_deal': colored('yellow', '\n!!! Initial deal !!!\n'),
-    'circle_num': colored('yellow', '\n!!! Deal {} !!!\n'),
-    'alive_players': colored('yellow', '\nPlayers in the game:\n'),
+    'next_deal': colored('yellow', '\n!!! Deal {} !!!\n'),
+    'alive_players': colored('yellow', '\nRemained players:\n'),
     'no_players': colored('yellow', '\nThere are no players in game\n'),
-
+    'falling': colored('red', '{player} has just fallen!\n'
+                'Lost {money}$ -> money left {bank}'),
     # Dealer
     'dealer_fall': colored('magenta', 'Dealer has just fallen! All remained players in the game won (bet x2)'),
     'eq': colored('magenta', """{player} hand value equal with dealer's. 
@@ -50,7 +51,7 @@ MESSAGES = {
     'dealer_game': colored('magenta', '\nStart Game versus Dealer !!! \n'),
 
     # Results
-    'win': colored('GREEN', '{player} player is win'
+    'win': colored('GREEN', '{player} player won'
                             '\nhand value -> {score} | '
                             'profit -> {profit}$ | '
                             'bank -> {bank}$'),
@@ -59,7 +60,7 @@ MESSAGES = {
                                       'bet -> {profit}$ | '
                                       'bank -> {bank}$'),
 
-    'lose': colored('RED', '{player} player is lose'
+    'lose': colored('RED', '{player} player lost'
                            '\nscore -> {score} | '
                            '-money -> {profit}$ | '
                            'bank -> {bank}$'),
