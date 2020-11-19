@@ -19,10 +19,10 @@ class Game:
         self.player = None  # property for real player instance
         self.all_players_count = 1  # TODO: is it needed?
         self.deck = Deck()  # deck of cards instance
-        self.players_enough = []  #
-        self.dealer = Player.Dealer()
-        self.max_bet, self.min_bet = 20, 0
-        self.losers = []
+        self.players_enough = []  # anchor for game with dealer
+        self.dealer = Player.Dealer()  # dealer instance
+        self.max_bet, self.min_bet = 20, 0  # bet limit
+        self.losers = []  # container for
 
     @staticmethod
     def _ask_starting(message):
@@ -136,8 +136,8 @@ class Game:
             # if wont a card
             elif not player.ask_card():
                 player.enough = True
-            player.print_cards()
-            sleep(2)
+                player.print_cards()
+                sleep(2)
 
     # Dealer methods
     def play_with_dealer(self):
