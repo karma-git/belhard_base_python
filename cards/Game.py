@@ -26,6 +26,9 @@ class Game:
 
     @staticmethod
     def _ask_starting(message):
+        """
+        Game starter question.
+        """
         while True:
             choice = input(message)
             if choice == 'n':
@@ -34,45 +37,52 @@ class Game:
                 return True
 
     def _launching(self):
-
+        """
+        Data for launch game.
+        """
+        # Ask Player.Player name
         while True:
             your_name = input('Hello, write your name: ')  # todo: const
             if your_name:
-                # Player.Player.name = your_name
                 break
-
+        # Ask bots count
         while True:
             bots_count = int(input('Hello, write bots count (3 max): '))  # todo: const
-            if bots_count <= self.max_pl_count - 1:  # self # Game #__name__
+            if bots_count <= self.max_pl_count - 1:
                 break
-
+        # bot creating
         for _ in range(bots_count):
             b = Player.Bot()
             self.players.append(b)
-
-            print(b, 'is created')  # is it neaded?
-
+            print(b, 'is created')
+        # Player instance creating: name + player pos
         self.player = Player.Player()
         self.player.name = your_name
         self.player_pos = random.randint(0, len(self.players))
-        print(f'{self.player} position is: ', self.player_pos)  # it needs to be deleted
+        print(f'{self.player} position is: ', self.player_pos)
         self.players.insert(0, self.player)
 
     def _restart(self):
-        self.deck = Deck() # New dec
-        self.dealer = Player.Dealer() # CLEAR dealer
-        self.players_enough.clear() # restart
+        """
+        Method for clear desk params
+        """
+        self.deck = Deck()  # New dec
+        self.dealer = Player.Dealer()  # CLEAR dealer
+        self.players_enough.clear()  # anchor for game with dealer
         self.circle_count = 1
-
+        # move players who lose in last game to new
         while self.losers:
             self.players.append(self.losers.pop())
-
+        # clear player cards, hands value, and ask_card
         for player in self.players:
             player.cards.clear()
             self.full_points = None
             player.enough = False
 
     def ask_bet(self):
+        """
+        Ask a player about bet
+        """
         for player in self.players:
             player.change_bet(self.max_bet, self.min_bet)
 
@@ -80,7 +90,6 @@ class Game:
         """
         First desk, all players will take 2 cards
         """
-        # take first 2 cards for each player
         print(MESSAGES.get('first_desk'))
         for player in self.players:
             for _ in range(2):
@@ -91,9 +100,17 @@ class Game:
             player.print_cards()
 
     def is_next_desk_needed(self):
-        self.players_enough.clear()  # votes of the players
+        """
+        Anchor which check, will remained player ready to play versus dealer.
+        Main mechanic:
+                    if no enough=False in players_enough
+                    -> means all players in the game wont take a card
+                    -> so is_next_desk_needed returns false
+                    -> start game: alive players versus dealer
+        """
+        self.players_enough.clear()  # clear anchor for game with dealer
         for player in self.players:
-            self.players_enough.append(player.enough)  # send player decision to vote
+            self.players_enough.append(player.enough)  # send player decision to anchor
         # True if at least one player need a card
         if False in self.players_enough:
             self.circle_count += 1
@@ -249,11 +266,11 @@ class Game:
             #         player.print_cards()
 
             # Game vs Dealer
-            if self.players != []:
+            if self.players:
                 print(MESSAGES.get('alive_players'))
 
-                # for player in self.players: #zadvoenie card
-                #     player.print_cards()
+                for player in self.players:
+                    player.print_cards()
 
                 print(MESSAGES.get('dealer_game'))
                 self.play_with_dealer()
