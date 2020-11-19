@@ -30,6 +30,8 @@ SUITS = ['Diamonds', 'Clubs', 'Spades', 'Hearts']
 RANKS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace']
 
 MESSAGES = {
+    # Start message:
+
     # System messages: Yellow / Light_Yellow
     'ask_name': colored('LIGHTYELLOW_EX', """Hello Stranger, what's your name?: """),
     'ask_bot_count': colored('LIGHTYELLOW_EX', 'Choose bots count (from 0 to 3): '),
@@ -42,7 +44,7 @@ MESSAGES = {
     'next_deal': colored('yellow', '\n!!! Deal {} !!!\n'),
     'alive_players': colored('yellow', '\nRemained players:\n'),
     'no_players': colored('yellow', '\nThere are no players in game\n'),
-    'falling': colored('red', '{player} has just fallen!\n'
+    'falling': colored('yellow', '{player} has just fallen!\n'
                 'Lost {money}$ -> money left {bank}'),
     'player_bank': colored('yellow', """{player}'s current bank {bank}$"""),
     # Dealer

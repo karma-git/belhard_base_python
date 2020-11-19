@@ -167,6 +167,7 @@ class Game:
                     player.full_points -= 10
                 # hand print
                 player.print_cards()
+                # check falling
                 if self.check_fall(player):
                     self.remove_player(player)
                 sleep(2)
