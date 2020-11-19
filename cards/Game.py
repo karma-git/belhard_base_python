@@ -136,7 +136,7 @@ class Game:
         Print how much money info also.
         """
         print(player, f' has just fallen!\n'
-                      f'lost {player.bet}$ -> money left {player.bank}')  # TODO: const!
+                      f'lost {player.bet}$ -> money left {player.money}')  # TODO: const!
         self.players.remove(player)
         self.losers.append(player)
 
