@@ -10,15 +10,14 @@ class Game:
     """
     Main game object.
     """
-    # global vairables
+    # global variables
     max_pl_count = 4
     circle_count = 1
 
     def __init__(self):
-        self.players = []
-        self.player = None
-        # self.player_pos = None
-        self.all_players_count = 1
+        self.players = []  # list of players instance in current game
+        self.player = None  # property for real player instance
+        self.all_players_count = 1  # TODO is it needed?
         self.deck = Deck()
         self.players_enough = []
         self.dealer = Player.Dealer()
@@ -126,14 +125,15 @@ class Game:
             if player.ask_card():
                 card = self.deck.get_card()
                 player.take_card(card)
-
                 # Ace 1 point mechanic
                 if card.rank == 'Ace' and player.full_points > 21:
                     player.full_points -= 10
-
+                # hand print
+                player.print_cards()
                 if self.check_fall(player):
                     self.remove_player(player)
-
+                sleep(2)
+            # if wont a card
             elif not player.ask_card():
                 player.enough = True
             player.print_cards()
