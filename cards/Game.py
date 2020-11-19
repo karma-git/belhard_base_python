@@ -63,7 +63,7 @@ class Game:
 
     def _restart(self):
         """
-        Method for clear desk params
+        Method for clear desk params & print player's bank
         """
         self.deck = Deck()  # New dec
         self.dealer = Player.Dealer()  # CLEAR dealer
@@ -77,6 +77,8 @@ class Game:
             player.cards.clear()
             self.full_points = None
             player.enough = False
+            print(MESSAGES.get('player_bank').format(player=player,
+                                                     bank=player.money))
 
     def ask_bet(self):
         """
@@ -259,6 +261,9 @@ class Game:
                                        x=1,
                                        bank=player.money)
 
+    def losers_stats(self):
+        pass
+
     ### DEBUG ###
     def _debug(self):
         """
@@ -305,6 +310,7 @@ class Game:
                 self.play_with_dealer()
                 # results of the game versus dealer
                 self.check_winner()
+                self.losers_stats()
             # if all players have been fall
             else:
                 print(MESSAGES.get('no_players'))

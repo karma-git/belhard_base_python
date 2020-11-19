@@ -44,6 +44,7 @@ MESSAGES = {
     'no_players': colored('yellow', '\nThere are no players in game\n'),
     'falling': colored('red', '{player} has just fallen!\n'
                 'Lost {money}$ -> money left {bank}'),
+    'player_bank': colored('yellow', """{player}'s current bank {bank}$"""),
     # Dealer
     'dealer_fall': colored('magenta', 'Dealer has just fallen! All remained players in the game won (bet x2)'),
     'eq': colored('magenta', """{player} hand value equal with dealer's. 
