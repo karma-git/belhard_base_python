@@ -13,7 +13,7 @@ class Game:
     def __init__(self):
         self.players = []
         self.player = None
-        self.player_pos = None
+        # self.player_pos = None
         self.all_players_count = 1
         self.deck = Deck()
         self.players_enough = []
@@ -50,8 +50,8 @@ class Game:
 
         self.player = Player.Player()
         self.player.name = your_name
-        self.player_pos = random.randint(0, len(self.players))
-        print(f'{self.player} position is: ', self.player_pos)  # it needs to be deleted
+        # self.player_pos = random.randint(0, len(self.players))
+        # print(f'{self.player} position is: ', self.player_pos)  # it needs to be deleted
         self.players.insert(self.player_pos, self.player)
 
     def _restart(self):
