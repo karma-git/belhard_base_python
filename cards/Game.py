@@ -7,6 +7,9 @@ from const import MESSAGES, colorama_colors, colored
 
 
 class Game:
+    """
+    Main game object
+    """
     max_pl_count = 4
     circle_count = 1
 
@@ -218,7 +221,7 @@ class Game:
     # DEBUG
     def _debug(self):
         for player in self.players:
-            print(f'{player} -> {player.enough}')
+            print(f'{player} -> want a card? {player.enough}')
 
     # main Game method
     def start_game(self):
@@ -236,10 +239,11 @@ class Game:
             self.first_desc()  # first desk
             sleep(2.5)
 
-            # self._debug()
+            self._debug()
 
             # Player versus dealer
             while self.is_next_desk_needed():
+                self._debug()
                 self.ask_card()
             # else:
             #     for player in self.players:
