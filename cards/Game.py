@@ -52,7 +52,7 @@ class Game:
         self.player.name = your_name
         # self.player_pos = random.randint(0, len(self.players))
         # print(f'{self.player} position is: ', self.player_pos)  # it needs to be deleted
-        # self.players.insert(self.player_pos, self.player)
+        self.players.insert(0, self.player)
 
     def _restart(self):
         self.deck = Deck() # New dec
