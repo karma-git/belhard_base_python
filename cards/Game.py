@@ -8,8 +8,9 @@ from const import MESSAGES, colorama_colors, colored
 
 class Game:
     """
-    Main game object
+    Main game object.
     """
+    # global vairables
     max_pl_count = 4
     circle_count = 1
 

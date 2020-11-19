@@ -65,4 +65,5 @@ def random_name():
     return get_first_name(gender="male")
 
 
-NAMES = set([random_name() for _ in range(20)])  # set due to we want to get unique names for bots
+NAMES = [random_name() for _ in range(20)]  # set due to we want to get unique names for bots
+NAMES = set(NAMES)
