@@ -17,7 +17,6 @@ class Game:
     def __init__(self):
         self.players = []  # list of players instance in current game
         self.player = None  # property for real player instance
-        self.all_players_count = 1  # TODO: is it needed?
         self.deck = Deck()  # deck of cards instance
         self.players_enough = []  # anchor for game with dealer
         self.dealer = Player.Dealer()  # dealer instance

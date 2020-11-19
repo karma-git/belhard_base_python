@@ -6,6 +6,7 @@ colorama_colors = {
     'RED': clr.Fore.BLACK,
     'GREEN': clr.Fore.GREEN,
     'YELLOW': clr.Fore.YELLOW,
+    'LIGHTYELLOW_EX' : clr.Fore.LIGHTYELLOW_EX,
     'BLUE': clr.Fore.BLUE,
     'MAGENTA': clr.Fore.MAGENTA,
     'CYAN': clr.Fore.CYAN,
@@ -30,12 +31,12 @@ RANKS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 
 
 MESSAGES = {
     'ask_start': 'Want to play?(y/n) ',
-    'ask_card': 'Want new card?(y/n) ',
+    'ask_card': 'Want a new card?(y/n) ',
     'ask_bet': 'Make your bet (1-19 $): ',
-    'dealer_fall': 'Dealer has just fallen! All remained players in the game won',
-    'eq': '{player} player has {points} points so it equal with dealer points\n {player} bid will be back',
+    'dealer_fall': 'Dealer has just fallen! All remained players in the game won (bet x2)',
+    'eq': """{player} hand score equal with dealer's. Bet has been returned to player's account. """,
 
-    'win': colored('LIGHTRED_EX', '{player} player is win'
+    'win': colored('GREEN', '{player} player is win'
                                   '\nscore -> {score} | '
                                   'profit -> {profit} | '
                                   'bank -> {bank}'),
@@ -44,7 +45,7 @@ MESSAGES = {
                                       'bet -> {profit} | '
                                       'bank -> {bank}'),
 
-    'lose': colored('LIGHTWHITE_EX', '{player} player is lose'
+    'lose': colored('RED', '{player} player is lose'
                                      '\nscore -> {score} | '
                                      '-money -> {profit} | '
                                      'bank -> {bank}'),
