@@ -319,3 +319,6 @@ class Game:
             # new game asking
             if not self._ask_starting(MESSAGES.get('ask_rerun')):
                 break
+        # Money left
+        else:
+            print(MESSAGES.get('no_money'))
