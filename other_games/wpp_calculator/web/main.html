@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>wallpapers calculator</title>
+
+    <script src="eel.js"></script>
+    <link rel="icon" type="image/png" href="/ico.png">
+
+    <link rel="stylesheet" href="main.css">
+    <link href="https://fonts.googleapis.com/
+    css2?family=Roboto:wgth@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu" />
+</head>
+<body>
+
+
+            <!--        обои-->
+
+    <div id="block_1" align="center">
+        <h2>PLEASE CHECK THE DIMENSIONS OF YOUR WALLPAPER</h2>
+        <h3>we've started you off with our standard roll sizes below:</h3>
+        <div id="wppr">
+            <input id="roll_weight" type="text" placeholder="Roll width in cm" required="">
+            <input id="roll_length" type="text" placeholder="Roll length in m" required="">
+        </div>
+        <pre>*Enter your roll and wall dimensions to calculate how many rolls
+        of wallpaper your project will require.</pre>
+        <pre>
+            *This calculator provides an approximate roll recommendation only.
+            Style Library advise that you always consult your decorator before ordering wallpaper as we cannot be held responsible
+            for any incorrect quantities of wallpaper ordered.
+        </pre>
+    </div>
+
+<!--        room div-->
+    <div id="room" align="center">
+        <input id="x" type="text" placeholder="length in m ..." required="">
+        <input id="y" type="text" placeholder="weight in m ..." required="">
+        <input id="z" type="text" placeholder="height in m ..." required="">
+    </div>
+
+    <div align="center">
+        <button id="show">calculate</button>
+    </div>
+
+    <div id="info" align="center"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+
+
+        async function display_request() {
+            let x = document.getElementById('x').value;
+            let y = document.getElementById('y').value;
+            let z = document.getElementById('z').value;
+
+            let roll_weight = document.getElementById('roll_weight').value;
+            let roll_length = document.getElementById('roll_length').value;
+
+            let res = await eel.display_wpprs_pick_up(x, y, z, roll_weight, roll_length)();
+            document.getElementById('info').innerHTML = res;
+        }
+
+        jQuery('#show').on('click', function() {
+            display_request();
+        });
+
+    </script>
+
+</body>
+</html>

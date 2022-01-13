@@ -1,0 +1,151 @@
+* {
+    font-family: "Roboto", sans-serif;
+}
+
+body {
+
+
+    background: #373B44;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #4286f4, #373B44);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #4286f4, #373B44); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
+}
+
+h1 {
+    font-family: Ubuntu;
+    font-size: 24px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 700; line-height: 26.4px;
+}
+
+h2 {
+    font-family: Ubuntu;
+    font-size: 19px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 600; line-height: 21.4px;
+}
+
+h3 {
+    font-family: Ubuntu;
+    font-size: 14px; font-style: normal;
+    font-variant: normal; font-weight: 700; line-height: 15.4px;
+}
+p {
+    font-family: Ubuntu;
+    font-size: 14px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+blockquote {
+    font-family: Ubuntu;
+    font-size: 21px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400; line-height: 30px;
+}
+pre {
+    font-family: Ubuntu;
+    font-size: 13px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 18.5714px;
+}
+
+#block_1 {
+}
+
+
+#wppr {
+
+
+}
+
+#roll_weight, #roll_length  {
+    border: none;
+    margin-right: 25px;
+
+    background: rgba(255, 255, 255, .5);
+    border-radius: 10px;
+    padding: 20px;
+    color: white;
+    outline: none;
+    width: 15%;
+    font-size: 14px;
+    font-weight: 250
+}
+
+
+
+#x, #y, #z {
+    display: block;
+    border: none;
+    margin-top: 15px;
+
+    background: rgba(255, 255, 255, .5);
+    border-radius: 10px;
+    padding: 20px;
+    color: white;
+    outline: none;
+    width: 40%;
+    font-size: 17px;
+    font-weight: 300
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, .5);
+}
+
+
+
+
+#show {
+    display: block;
+    border: none;
+    margin-top: 15px;
+
+    background: #59C173;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #5D26C1, #a17fe0, #59C173);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #5D26C1, #a17fe0, #59C173); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    border-radius: 10px;
+    padding: 20px;
+    color: white;
+    outline: none;
+    width: 43%;
+    font-size: 17px;
+    font-weight: 300
+    cursor: pointer;
+}
+
+#show:hover {
+    opacity: .9
+}
+
+#info {
+    display: block;
+    border: none;
+    margin-top: 15px;
+    text-align: center;
+    height: 200px;
+    line-height: 20px;
+
+    font-family: Ubuntu;
+    font-size: 14px; font-style: normal;
+    font-variant: normal; font-weight: 700; line-height: 15.4px;
+
+    border-radius: 10px;
+    padding: 20px;
+    color: white;
+    outline: none;
+    width: 100%;
+    font-size: 17px;
+    font-weight: 300
+}
+
