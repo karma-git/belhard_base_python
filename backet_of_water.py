@@ -4,12 +4,12 @@ from os import system, name
 
 def clear():
     # for windows
-    if name == 'nt':
-        _ = system('cls')
+    if name == "nt":
+        _ = system("cls")
 
         # for mac and linux(here, os.name is 'posix')
     else:
-        _ = system('clear')
+        _ = system("clear")
 
 
 table = PrettyTable()
@@ -18,7 +18,9 @@ table.field_names = ["\\", "backet A (3l)", "backet B (5l)"]
 table.add_row(["fill up the backet\n", "1", "2"])
 table.add_row(["empty the backet\n", "3", "4"])
 table.add_row(["pour water", "from A to B\n5", "from B to A\n6"])
-table.add_row(['\nadd', '\ntype _quit_ for quit', '\ntype _clear_ for \nclear count table'])
+table.add_row(
+    ["\nadd", "\ntype _quit_ for quit", "\ntype _clear_ for \nclear count table"]
+)
 
 table_2 = PrettyTable()
 table_2.field_names = ["backet A, Liters", "backet B, Liters", "iteration"]
@@ -32,13 +34,15 @@ while True:
     print(table_2)
     #    c = int(input("Select an operation: "))
     if b == 4:
-        print(f"congratz, the riddle has been passed\nThe backet B has {b} Litres in {i} => iterations")  # vivesti tablicy
+        print(
+            f"congratz, the riddle has been passed\nThe backet B has {b} Litres in {i} => iterations"
+        )  # vivesti tablicy
         break
     else:
         c = input("select an operation: ")
         if c.isdigit() and int(c) in range(1, 7):
             c = int(c)
-        elif c == 'quit' or c == 'clear':
+        elif c == "quit" or c == "clear":
             c = str(c)
         else:
             continue
@@ -92,10 +96,10 @@ while True:
             b = 0
         table_2.add_row([a, b, i])
 
-    elif c == 'quit':
+    elif c == "quit":
         print(f"bye, we looking forward for your returning!")
         quit()
-    elif c == 'clear':
+    elif c == "clear":
         clear()
         table_2 = PrettyTable()
         table_2.field_names = ["backet A, Liters", "backet B, Liters", "iteration"]
