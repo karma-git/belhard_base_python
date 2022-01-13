@@ -13,10 +13,3 @@ Execute:
 ```shell
 bj
 ```
-
-<details>
-
-<summary>others</summary>
-- WallPapper Calculator
-- Backet Of Water
-</details>
