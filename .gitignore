@@ -1,0 +1,11 @@
+# py
+venv
+__pycache__
+# db
+pg_data
+*.sqlite3
+*.db
+# doc
+*.ash_history
+# pypi
+dist
